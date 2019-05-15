@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <script src='/jquery-3.4.1.min.js'></script>
+    </header>
+    <body>
+        <div id="content">
+            <h1>Builder Pattern</h1>
+            <p id="stuff"></p>
+            <button id="headBtn">Add Head</button>
+            <button id="limbBtn">Add Limb</button>
+            <button id="weightBtn">Add 3kg</button>
+            <button id="heightBtn">Add 3cm</button>
+        </div>
+        <script>
+            $(document).ready(() => {
+                let height = 0;
+                let weight = 0;
+                let builder = new BeingBuilder().setName('Jose').setHeight(height).setWeight(weight);
+                function updateText() {
+                    $('#stuff').text(builder.getBeing().toString());
+                }
+                updateText();
+
+                $('#headBtn').click(() => {
+                    builder.addHeads(1);
+                    updateText();
+                });
+                $('#limbBtn').click(() => {
+                    builder.addLimbs(1);
+                    updateText();
+                });
+                $('#weightBtn').click(() => {
+                    weight += 3;
+                    builder.setWeight(weight);
+                    updateText();
+                });
+                $('#heightBtn').click(() => {
+                    height += 3;
+                    builder.setHeight(height);
+                    updateText();
+                });
+            });
+
+            class BeingBuilder {
+                constructor() {
+                    this.being = new Being();
+                }
+                setHeight(height) {
+                    this.being.height = height;
+                    return this;
+                }
+                setWeight(weight) {
+                    this.being.weight = weight;
+                    return this;
+                }
+                setName(name) {
+                    this.being.name = name;
+                    return this;
+                }
+                addHeads(n) {
+                    this.being.heads += n;
+                    return this;
+                }
+                addLimbs(n) {
+                    this.being.limbs += n;
+                    return this;
+                }
+                getBeing() {
+                    return this.being;
+                }
+            }
+
+            class Being {
+                constructor(name) {
+                    this.name = name;
+                    this.heads = 0;
+                    this.limbs = 0;
+                    this.weight = 0;
+                    this.height = 0;
+                }
+                get partsCount() {
+                    return this.heads + this.limbs;
+                }
+
+                toString() {
+                    let str = `${this.name} `;
+                    if (this.partsCount > 0) {
+                        str += 'has ';
+                        if (this.heads > 0) str += this.heads + ' heads ';
+                        if (this.limbs > 0) str += this.limbs + ' limbs ';
+                        str += 'and ';
+                    }
+                    str += 'is ' + this.weight + 'kg and ' + this.height + 'cm tall.';
+                    return str;
+                }
+            }
+        </script>
+    </body>
+</html>

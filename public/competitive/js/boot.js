@@ -14,6 +14,7 @@ let commandPaths = commandNames.map(x => 'command/' + x);
 
 define(['jquery', 'Runner', ...commandPaths], ($, Runner, ...commandNames) => {
     $(document).ready(() => {
+        $('body').css({ visibility: 'visible', });
         let targetCommand = commandNames[0];
         $('#commandTitle').text(targetCommand.name);
 

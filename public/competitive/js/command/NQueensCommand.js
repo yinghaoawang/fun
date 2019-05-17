@@ -1,5 +1,4 @@
 define('command/NQueensCommand', ['command/Command', 'constraint/RangeConstraint'], (Command, RangeConstraint) => {
-    /* N Queens */
     let NQueensCommand = function() {
         return new Command(nQueens, RangeConstraint(0, 10));
     }
@@ -53,5 +52,4 @@ define('command/NQueensCommand', ['command/Command', 'constraint/RangeConstraint
 
     return NQueensCommand;
 });
-
 

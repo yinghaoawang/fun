@@ -20,14 +20,21 @@
         </div>
         <div id="main" class="main">
             <div><a id="chapter-btn" href="javascript:void(0)" data-showing="false">Show Chapters</a></div>
-            <div>
-                <h1>My Math Notes</h1>
-                When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
-                $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+            <div id="content">
             </div>
         </div>
         <script>
             $(document).ready(() => {
+                $.ajax({
+                    url: 'notes',
+                    success: (data) => {
+                        let fileNames = [];
+                        $(data).find("a[href$='.html']").each(function() {
+                            fileNames.push($(this).text());
+                        });
+                        console.log(fileNames);
+                    }
+                });
                 function hideNav() {
                     $('#side-nav').css({ 'width': '0' });
                     $('#main').css({ 'margin-left': '0'});

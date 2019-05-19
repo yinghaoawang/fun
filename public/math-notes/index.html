@@ -1,18 +1,55 @@
 <!DOCTYPE html>
 <html>
     <header>
+        <link rel="stylesheet" href="side-nav.css">
         <script type="text/x-mathjax-config">
             MathJax.Hub.Config({
               tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] }
             });
         </script>
-        <script type="text/javascript" async
-              src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
-        </script>
+        <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+        <script src="/jquery-3.4.1.min.js"></script>
     </header>
     <body>
-        <h1>My Math Notes</h1>
-        When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
-        $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+        <div id="side-nav" class="side-nav">
+            <a href="javascript:void(0)" id="close-nav" class="close-nav">&times;</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Clients</a>
+            <a href="#">Contact</a>
+        </div>
+        <div id="main" class="main">
+            <div><a id="chapter-btn" href="javascript:void(0)" data-showing="false">Show Chapters</a></div>
+            <div>
+                <h1>My Math Notes</h1>
+                When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
+                $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+            </div>
+        </div>
+        <script>
+            $(document).ready(() => {
+                function hideNav() {
+                    $('#side-nav').css({ 'width': '0' });
+                    $('#main').css({ 'margin-left': '0'});
+                    $('#chapter-btn').attr('data-showing', 'false');
+                    $('#chapter-btn').html('Show Chapters');
+                }
+                function showNav() {
+                    $('#side-nav').css({ 'width': '250px' });
+                    $('#main').css({ 'margin-left': '250px'});
+                    $('#chapter-btn').attr('data-showing', 'true');
+                    $('#chapter-btn').html('Hide Chapters');
+                }
+
+                $('#close-nav').click(hideNav);
+                $('#chapter-btn').click(() => {
+                    if ($('#chapter-btn').attr('data-showing') == 'true') {
+                        hideNav();
+                    } else {
+                        showNav();
+                    }
+                });
+            });
+        </script>
     </body>
 </html>

@@ -21,6 +21,7 @@
         </div>
         <script>
             $(document).ready(() => {
+                showNav();
                 // Get the note names to put into the side nav
                 $.ajax({
                     url: 'notes',
@@ -31,14 +32,21 @@
                         });
                         for (let i = 0; i < fileNames.length; ++i) {
                             let fileName = fileNames[i];
+                            // add a link to the side nav
                             $('#side-nav').append(`<a id="fileName${ i }" href="javascript:void(0)" data-url=${ fileName }>${ fileName }</a>`);
+                            // when click on the link, it loads the note's contents into a div and then mathjax parses it
                             $('#fileName' + i).click(() => {
-                                console.log($('#fileName' + i).attr('data-url'));
                                 $('#content').load('notes/' + $('#fileName' + i).attr('data-url'), () => {
                                     MathJax.Hub.Queue(["Typeset", MathJax.Hub, "content"]);
                                 });
                             });
                         };
+                        // Load the first file if exists
+                        if (fileNames.length > 0) {
+                            $('#content').load('notes/' + $('#fileName' + 0).attr('data-url'), () => {
+                                MathJax.Hub.Queue(["Typeset", MathJax.Hub, "content"]);
+                            });
+                        }
                     }
                 });
 

@@ -13,10 +13,6 @@
     <body>
         <div id="side-nav" class="side-nav">
             <a href="javascript:void(0)" id="close-nav" class="close-nav">&times;</a>
-            <a href="#">About</a>
-            <a href="#">Services</a>
-            <a href="#">Clients</a>
-            <a href="#">Contact</a>
         </div>
         <div id="main" class="main">
             <div><a id="chapter-btn" href="javascript:void(0)" data-showing="false">Show Chapters</a></div>
@@ -25,6 +21,7 @@
         </div>
         <script>
             $(document).ready(() => {
+                // Get the note names to put into the side nav
                 $.ajax({
                     url: 'notes',
                     success: (data) => {
@@ -32,15 +29,26 @@
                         $(data).find("a[href$='.html']").each(function() {
                             fileNames.push($(this).text());
                         });
-                        console.log(fileNames);
+                        for (let i = 0; i < fileNames.length; ++i) {
+                            let fileName = fileNames[i];
+                            $('#side-nav').append(`<a id="fileName${ i }" href="javascript:void(0)" data-url=${ fileName }>${ fileName }</a>`);
+                            $('#fileName' + i).click(() => {
+                                console.log($('#fileName' + i).attr('data-url'));
+                                $('#content').load('notes/' + $('#fileName' + i).attr('data-url'), () => {
+                                    MathJax.Hub.Queue(["Typeset", MathJax.Hub, "content"]);
+                                });
+                            });
+                        };
                     }
                 });
+
                 function hideNav() {
                     $('#side-nav').css({ 'width': '0' });
                     $('#main').css({ 'margin-left': '0'});
                     $('#chapter-btn').attr('data-showing', 'false');
                     $('#chapter-btn').html('Show Chapters');
                 }
+
                 function showNav() {
                     $('#side-nav').css({ 'width': '250px' });
                     $('#main').css({ 'margin-left': '250px'});

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <script src="/jquery-3.4.1.min.js"></script>
+    </header>
+    <body>
+        <h1>Favorite tabs</h1>
+        <ul id="tab-list">
+        </ul>
+        <a id="hide-btn" style="display: none" href="javascript:void(0)">Hide Tab</a>
+        <pre id="content"></pre>
+        <script>
+            const rawPath = 'raw-tabs/';
+            $(document).ready(() => {
+                $('#hide-btn').click(() => {
+                    if ($('#hide-btn').attr('data-displaying') == 'true') {
+                        $('#hide-btn').text('Hide Tab');
+                        $('#hide-btn').attr('data-displaying', 'false');
+                        $('#content').show();
+                    } else {
+                        $('#hide-btn').text('Show Tab');
+                        $('#content').hide();
+                        $('#hide-btn').attr('data-displaying', 'true');
+                    }
+                });
+                $.ajax({
+                    url: rawPath,
+                    success: ((data) => {
+                        let fileNames = [];
+                        $(data).find("a[href$='.txt']").each(function() {
+                            fileNames.push($(this).text());
+                        });
+                        for (let i = 0; i < fileNames.length; ++i) {
+                            let fileName = fileNames[i];
+                            let elementId = 'fileName' + i;
+                            $('#tab-list').append(`<li><a id="${ elementId }" href="javascript:void(0)" data-url=${ fileName }>${ fileName }</a>`);
+                            $('#' + elementId).click(function() {
+                                let url = rawPath + $(this).attr('data-url');
+                                $.ajax({
+                                    url,
+                                    dataType: 'text',
+                                    success: (data) => {
+                                        $('#content').text(data);
+                                        $('#hide-btn').css({ 'display': 'block', });
+                                    },
+                                });
+                            });
+                        }
+                    }),
+                });
+                $('#tab-list > li > a').each(function() {
+                    $(this).attr('href', 'javascript:void(0)');
+                    $(this).click(() => {
+                        let url = rawPath + $(this).attr('data-url');
+                        $.ajax({
+                            url,
+                            dataType: 'text',
+                            success: (data) => {
+                                $('#content').text(data);
+                                $('#hide-btn').css({ 'display': 'block', });
+                            },
+                        });
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>

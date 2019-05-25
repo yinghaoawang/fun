@@ -10,9 +10,19 @@ For example, finding the factorial of a number can be done recursively.</p>
 <p>Finding the factorial requires it to repeatedly multiply its current value with the next number. The self-referential part of the factorial
 problem is is the product.</p>
 
+<p>To be more precise, recursion consists of a base case and a recursive step. The recursive step assumes the current state and determines 
+the next state. The base case is the case where it must be true. It can be seen as an exit for the recursive step. If you work from the top, 
+you continuously call the recursive function until you reach the base case, where it will complete itself.</p>
+
+<p>For finding a factorial, your base case is when the current iterator is 1. Let's solve 5!. You begin with the starting number (in this case, the last number),
+and multiply it with 4!. We assume that 4! is already solved, and 5! is just 4! * 5. Then, we repeatedly multiply it's current value with the next value
+until we reach the base case, 1. So we have 5! = 5 * 4! = 5 * 4 * 3! = 5 * 4 * 3 * 2! = 5 * 4 * 3 * 2 * 1! = 5 * 4 * 3 * 2 * 1 = 120.</p>
+
 <h2>When do I use recursion?</h2>
 <p>There are a couple of cases where recursion is useful: </p>
 <ul>
     <li>When you want to find every possible solution of a problem.</li>
     <li>The object in the problem is defined recursively, like a tree or a graph data structure.</li>
 </ul>
+<p>The most important part of knowing when to use recursion is to first clarify the problem. If you understand how to solve the problem, 
+knowing to utilize recursion or not is easy.</p>

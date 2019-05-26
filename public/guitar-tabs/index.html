@@ -35,6 +35,7 @@
                             let elementId = 'fileName' + i;
                             $('#tab-list').append(`<li><a id="${ elementId }" href="javascript:void(0)" data-url=${ fileName }>${ fileName }</a>`);
                             $('#' + elementId).click(function() {
+                                localStorage.setItem('currentTabId', elementId);
                                 let url = rawPath + $(this).attr('data-url');
                                 $.ajax({
                                     url,
@@ -44,6 +45,20 @@
                                         $('#hide-btn').css({ 'display': 'block', });
                                     },
                                 });
+                            });
+                        }
+                        let currentTabId = localStorage.getItem('currentTabId');
+                        if (currentTabId != null) {
+                            let url = rawPath + $('#' + currentTabId).attr('data-url');
+                            console.log(url);
+                            $.ajax({
+                                url,
+                                dataType: 'text',
+                                success: (data) => {
+                                    $('#content').text(data);
+                                    $('#hide-btn').css({ 'display': 'block', });
+                                    console.log(data);
+                                }
                             });
                         }
                     }),

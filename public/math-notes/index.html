@@ -25,7 +25,7 @@
                 showNav();
                 // Get the note names to put into the side nav
                 $.ajax({
-                    url: notesUrl,
+                    url: notesPath,
                     success: (data) => {
                         let fileNames = [];
                         $(data).find("a[href$='.html']").each(function() {

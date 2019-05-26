@@ -44,3 +44,27 @@ We use the notation $n | m$. <br />
 <b>Proposition 1.17</b> <br />
 <i>i)</i> $0$ is divisible by every integer. <br />
 <i>ii)</i> If $m$ is an integer not equal to $0$, then $m$ is not divisible by $0$. <br />
+<b>Proposition 1.18</b> Let $x \in \mathbb{Z}$. If $x$ has the property that for all $m \in \mathbb{Z}$, $mx = m$, then $x = 1$. <br />
+Proof. <br>
+Let $m \in \mathbb{Z}$, and $mx = m$. The identity element for multiplication states <br>
+$$mx = m = 1 \cdot m$$
+Then we can use cancellation: <br>
+$$x = 1$$
+that is, for all $m \in \mathbb{Z}$, $mx = m$, then $x = 1$ <br />
+$$\tag*{$\blacksquare$}$$
+<b>Proposition 1.19</b> Let $x \in \mathbb{Z}$. If $x$ has the property that for some nonzero $m \in \mathbb{Z}$, $mx = m$, then $x = 1$. <br />
+<b>Proposition 1.20</b> For all $m$, $n \in \mathbb{Z}$, $(=m)(-n)=mn$. <br />
+Proof. <br />
+Let $m$, $n \in \mathbb{Z}$. The definition of the additive inverse axiom states:
+$$(-m) + m = 0 \text{ and }(-n) + n = 0$$
+We can multiply both sides by $n$ for the left equation and $-m$ for the right equation:
+$$(n)((-m)+m)=0 \text{ and } (-m)((-n) + n)=0$$
+Then, using the distribution axiom and associativity of multiplcation we have:
+$$(n)(-m)+(n)(m)=0 \text{ and } (-m)(-n)+(-m)(n)=0 \\
+(-m)(n)+(m)(n)=0 \text{ and } (-m)(-n)+(-m)(n)=0$$
+Since they are both equal to $0$, we can put the left side of the right equation on the right side of the left equation,
+$$(-m)(n)+(m)(n)=(-m)(-n)+(-m)(n) \\
+mn = (-m)(-n)$$
+that is,
+$$(-m)(-n) = mn$$
+$$\tag*{$\blacksquare$}$$

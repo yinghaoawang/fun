@@ -23,6 +23,8 @@
             const notesPath = 'notes/';
             $(document).ready(() => {
                 showNav();
+                let currentPageIndex = localStorage.getItem('currentPageIndex');
+                console.log(currentPageIndex, localStorage);
                 // Get the note names to put into the side nav
                 $.ajax({
                     url: notesPath,
@@ -34,17 +36,24 @@
                         for (let i = 0; i < fileNames.length; ++i) {
                             let fileName = fileNames[i];
                             // add a link to the side nav
-                            $('#side-nav').append(`<a id="fileName${ i }" href="javascript:void(0)" data-url=${ fileName }>${ fileName }</a>`);
+                            $('#side-nav').append(`<a id="fileName${ i }" data-index="${i}" href="javascript:void(0)" data-url=${ fileName }>${ fileName }</a>`);
                             // when click on the link, it loads the note's contents into a div and then mathjax parses it
                             $('#fileName' + i).click(() => {
+                                currentPageIndex = i;
+                                localStorage.setItem('currentPageIndex', currentPageIndex);
                                 $('#content').load(notesPath + $('#fileName' + i).attr('data-url'), () => {
                                     MathJax.Hub.Queue(["Typeset", MathJax.Hub, "content"]);
                                 });
                             });
                         };
+                        // Load the page in storage if there is one
+                        if (currentPageIndex == null && fileNames.length > 0) {
+                            currentPageIndex = 0;
+                            localStorage.setItem('currentPageIndex', currentPageIndex);
+                        }
                         // Load the first file if exists
-                        if (fileNames.length > 0) {
-                            $('#content').load(notesPath + $('#fileName' + 0).attr('data-url'), () => {
+                        if (currentPageIndex != null) {
+                            $('#content').load(notesPath + $('#fileName' + currentPageIndex).attr('data-url'), () => {
                                 MathJax.Hub.Queue(["Typeset", MathJax.Hub, "content"]);
                             });
                         }
